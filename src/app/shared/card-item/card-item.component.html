@@ -1,0 +1,10 @@
+  <div class="card mb-3 task-card" (click)="editTask()">
+    <div class="card-body">
+      <h5 class="card-title text-center">{{ task?.title }}</h5>
+      <p class="card-text">{{ task?.description }}</p>
+      <div class="task-icons d-flex justify-content-end">
+        <i class="bi bi-pencil-square me-2" (click)="editTask()"></i>
+        <i class="bi bi-trash" (click)="confirmDelete()"></i>
+      </div>
+    </div>
+  </div>

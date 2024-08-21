@@ -1,0 +1,11 @@
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let column of taskColumns">
+        <h4 class="card-header">{{ column.name }}</h4>
+        <app-card-item
+          *ngFor="let task of column.tasks"
+          [task]="task"
+        ></app-card-item>
+      </div>
+    </div>
+  </div>
