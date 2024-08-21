@@ -1,11 +1,27 @@
-  <div class="container">
+  <div class="container mt-5">
+    <h3 class="mt-5 mb-3 text-center">INEO TMS</h3>
     <div class="row">
-      <div class="col-md-4" *ngFor="let column of taskColumns">
-        <h4 class="card-header">{{ column.name }}</h4>
+      <div class="col-md-4">
+        <h4 class="card-header">To Do</h4>
         <app-card-item
-          *ngFor="let task of column.tasks"
+          *ngFor="let task of toDoTasks"
+          [task]="task"
+        ></app-card-item>
+      </div>
+      <div class="col-md-4">
+        <h4 class="card-header">In Progress</h4>
+        <app-card-item
+          *ngFor="let task of inProgressTasks"
+          [task]="task"
+        ></app-card-item>
+      </div>
+      <div class="col-md-4">
+        <h4 class="card-header">Done</h4>
+        <app-card-item
+          *ngFor="let task of doneTasks"
           [task]="task"
         ></app-card-item>
       </div>
     </div>
   </div>
+  

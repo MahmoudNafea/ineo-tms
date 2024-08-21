@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CardItemComponent } from '../../shared/card-item/card-item.component'
+import { TaskService } from '../../services/task.service'
+import { Task } from '../../models/task.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -11,52 +13,28 @@ import { CardItemComponent } from '../../shared/card-item/card-item.component'
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  // todoTasks = [
-  //   { name: 'Task 1',desc:'descsjk' },
-  //   { name: 'Task 2',desc:'descsjk' },
-  //   { name: 'Task 3',desc:'descsjk' }
-  // ];
 
-  // inProgressTasks = [
-  //   { name: 'Task 4' },
-  //   { name: 'Task 5' }
-  // ];
+  tasks: Task[]=[]
+  toDoTasks: Task[] = [];
+  inProgressTasks: Task[] = [];
+  doneTasks: Task[] = [];
 
-  // doneTasks = [
-  //   { name: 'Task 6' },
-  //   { name: 'Task 7' }
-  // ];
 
-  taskColumns = [
-    {
-      name: 'To Do',
-      tasks: [
-        { title: 'Task 1', description: 'Task 1 description' },
-        { title: 'Task 1', description: 'Task 1 description' },
-        { title: 'Task 1', description: 'Task 1 description' },
-      ],
-    },
-    {
-      name: 'In Progress',
-      tasks: [
-        { title: 'Task 2', description: 'Task 2 description' },
-        { title: 'Task 1', description: 'Task 1 description' },
-        { title: 'Task 1', description: 'Task 1 description' },
-      ],
-    },
-    {
-      name: 'Done',
-      tasks: [
-        { title: 'Task 3', description: 'Task 3 description' },
-        { title: 'Task 1', description: 'Task 1 description' },
-        { title: 'Task 1', description: 'Task 1 description' },
-      ],
-    },
-  ]
+  constructor(private taskService:TaskService) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    this.getAllTasks()
+  }
 
-  ngOnInit(): void {}
+  getAllTasks(){
+    this.taskService.getTasks().subscribe((tasks:any) => {
+      console.log("🚀 ~ DashboardComponent ~ this.taskService.getTasks ~ tasks:", tasks)
+      this.tasks = tasks;
+      this.toDoTasks = this.tasks.filter(task => task?.status === 'To Do');
+      this.inProgressTasks = this.tasks.filter(task => task?.status === 'In Progress');
+      this.doneTasks = this.tasks.filter(task => task?.status === 'Done');
+    });
+  }
 
   editTask() {
     // this.dialog.open(EditTaskDialog, {
