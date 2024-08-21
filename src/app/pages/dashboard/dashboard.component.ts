@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
-import { FormsModule } from '@angular/forms'
+import { Component, ViewChild } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CardItemComponent } from '../../shared/card-item/card-item.component'
 import { TaskService } from '../../services/task.service'
 import { Task } from '../../models/task.model'
+// import bootstrap from '../../../main.server'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardItemComponent],
+  imports: [CommonModule, FormsModule, CardItemComponent,ReactiveFormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -20,7 +22,10 @@ export class DashboardComponent {
   doneTasks: Task[] = [];
 
 
-  constructor(private taskService:TaskService) {}
+  constructor(private taskService:TaskService,
+    private modalService: NgbModal,
+
+  ) {}
 
   ngOnInit(): void {
     this.getAllTasks()
@@ -50,4 +55,30 @@ export class DashboardComponent {
     //   }
     // });
   }
+
+  openCreateTaskDialog(): void {
+    // Code to open dialog for creating a new task
+
+  }
+
+  openModal(content:any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        // Handle close result if needed
+      },
+      (reason) => {
+        // Handle dismiss reason if needed
+      }
+    );
+  }
+
+  addTask(newTask: any) {
+    // this.taskService.addTask(newTask).subscribe(() => {
+    //   this.loadTasks(); // Reload tasks after adding a new one
+    // });
+  }
+
+  // openTaskModal() {
+  //   this.createTaskDialogComponent.openModal();
+  // }
 }
