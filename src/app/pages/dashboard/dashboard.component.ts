@@ -36,9 +36,9 @@ export class DashboardComponent {
   createTaskForm: FormGroup
   showSpinner = false
   isLoading = false
-  sortAscending: boolean = true;
-  isInProgressAscending = true;
-  isDoneAscending = true;
+  sortAscending: boolean = true
+  isInProgressAscending = true
+  isDoneAscending = true
 
   @ViewChild(ToastComponent) toastComponent!: ToastComponent
 
@@ -58,39 +58,42 @@ export class DashboardComponent {
     this.getAllTasks()
   }
 
+  //Sorting the 3 status based on timestamp
   sortToDoTasks() {
-    this.sortAscending = !this.sortAscending;
+    this.sortAscending = !this.sortAscending
     this.toDoTasks.sort((a, b) => {
-      const dateA = new Date(a?.createdAt).getTime();
-      const dateB = new Date(b?.createdAt).getTime();
-      return this.sortAscending ? dateA - dateB : dateB - dateA;
-    });
+      const dateA = new Date(a?.createdAt).getTime()
+      const dateB = new Date(b?.createdAt).getTime()
+      return this.sortAscending ? dateA - dateB : dateB - dateA
+    })
   }
 
   sortInProgressTasks() {
-    this.isInProgressAscending = !this.isInProgressAscending;
+    this.isInProgressAscending = !this.isInProgressAscending
     this.inProgressTasks.sort((a, b) => {
       return this.isInProgressAscending
         ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
   }
-  
+
   sortDoneTasks() {
-    this.isDoneAscending = !this.isDoneAscending;
+    this.isDoneAscending = !this.isDoneAscending
     this.doneTasks.sort((a, b) => {
       return this.isDoneAscending
         ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
   }
 
+  //Get all tasks at the beginging with delay to show spinner
   getAllTasks() {
     this.isLoading = true
     this.taskService
       .getTasks()
-      .pipe(delay(2000)) // Delay for 3 seconds
+      .pipe(delay(2000)) // Delay for 2 seconds
       .subscribe((tasks: any) => {
+        //filtering tasks
         this.tasks = tasks
         this.toDoTasks = this.tasks.filter(
           (task) => task?.status === TaskStatus.ToDo,
@@ -105,29 +108,25 @@ export class DashboardComponent {
       })
   }
 
- updateAllTasks() {
-    this.taskService
-      .getTasks()
-      .subscribe((tasks: any) => {
-        this.tasks = tasks
-        this.toDoTasks = this.tasks.filter(
-          (task) => task?.status === TaskStatus.ToDo,
-        )
-        this.inProgressTasks = this.tasks.filter(
-          (task) => task?.status === TaskStatus.InProgress,
-        )
-        this.doneTasks = this.tasks.filter(
-          (task) => task?.status === TaskStatus.Done,
-        )
-      })
+  //Get all tasks without delay or spinner to update our tasks immediatly without reloading page
+
+  updateAllTasks() {
+    this.taskService.getTasks().subscribe((tasks: any) => {
+      //filtering tasks
+      this.tasks = tasks
+      this.toDoTasks = this.tasks.filter(
+        (task) => task?.status === TaskStatus.ToDo,
+      )
+      this.inProgressTasks = this.tasks.filter(
+        (task) => task?.status === TaskStatus.InProgress,
+      )
+      this.doneTasks = this.tasks.filter(
+        (task) => task?.status === TaskStatus.Done,
+      )
+    })
   }
 
-  editTask() {
-    // this.dialog.open(EditTaskDialog, {
-    //   data: this.task
-    // });
-  }
-
+  //Confirmation modal with a toastr
   confirmDeleteTask(task: Task) {
     this.taskService
       .deleteTask(task?.id)
@@ -146,22 +145,22 @@ export class DashboardComponent {
       })
   }
 
-  confirmUpdateTask(task:Task){
+  confirmUpdateTask(task: Task) {
     this.taskService
-    .updateTask(task)
-    .pipe(
-      catchError((error) => {
-        this.toastComponent.show(`${error?.message}`, 'error')
-        return of(null)
-      }),
-    )
-    .subscribe((data: any) => {
-      this.toastComponent.show(
-        `${data?.title} updated successfully`,
-        'success',
+      .updateTask(task)
+      .pipe(
+        catchError((error) => {
+          this.toastComponent.show(`${error?.message}`, 'error')
+          return of(null)
+        }),
       )
-      this.updateAllTasks()
-    })
+      .subscribe((data: any) => {
+        this.toastComponent.show(
+          `${data?.title} updated successfully`,
+          'success',
+        )
+        this.updateAllTasks()
+      })
   }
 
   openModal(content: any) {

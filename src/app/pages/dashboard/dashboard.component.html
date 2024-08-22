@@ -7,6 +7,8 @@
   </div>
 </div>
 
+
+<!-- conditionally show the page content -->
 <ng-template #content2>
   <div class="container-fluid  ">
     <div class="title-background">
@@ -53,12 +55,12 @@
   </div>
 </ng-template>
 
-
+<!-- Adding task using floating button -->
 <button type="button" class="btn  btn-floating" (click)="openModal(createTaskModal)">
   <i class="bi bi-plus"></i>
 </button>
 
-
+<!-- create new task modal -->
 <ng-template #createTaskModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Create New Task</h4>
@@ -123,4 +125,6 @@
   </div>
 </ng-template>
 
+
+<!-- toastr -->
 <app-toast></app-toast>

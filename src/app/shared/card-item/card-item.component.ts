@@ -37,6 +37,7 @@ export class CardItemComponent implements OnInit {
     this.patchTaskValue(this.task)
   }
 
+  //Patching current value before allowing user to edit it
   patchTaskValue(task: any) {
     if (task) {
       this.editTaskForm.setValue({
