@@ -36,6 +36,9 @@ export class DashboardComponent {
   createTaskForm: FormGroup
   showSpinner = false
   isLoading = false
+  sortAscending: boolean = true;
+  isInProgressAscending = true;
+  isDoneAscending = true;
 
   @ViewChild(ToastComponent) toastComponent!: ToastComponent
 
@@ -53,6 +56,33 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.getAllTasks()
+  }
+
+  sortToDoTasks() {
+    this.sortAscending = !this.sortAscending;
+    this.toDoTasks.sort((a, b) => {
+      const dateA = new Date(a?.createdAt).getTime();
+      const dateB = new Date(b?.createdAt).getTime();
+      return this.sortAscending ? dateA - dateB : dateB - dateA;
+    });
+  }
+
+  sortInProgressTasks() {
+    this.isInProgressAscending = !this.isInProgressAscending;
+    this.inProgressTasks.sort((a, b) => {
+      return this.isInProgressAscending
+        ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+  }
+  
+  sortDoneTasks() {
+    this.isDoneAscending = !this.isDoneAscending;
+    this.doneTasks.sort((a, b) => {
+      return this.isDoneAscending
+        ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
   }
 
   getAllTasks() {

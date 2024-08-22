@@ -3,8 +3,8 @@
     <h5 class="card-title text-center">{{ task?.title }}</h5>
     <p class="card-text">{{ task?.description }}</p>
     <div class="task-icons d-flex justify-content-end">
-      <i class="bi bi-pencil-square me-2" (click)="openEditTaskModal($event,editModal)"></i>
-      <i class="bi bi-trash" (click)="openDeleteModal(deletemodal)"></i>
+      <i class="bi bi-pencil-square me-2" style="color: #3b7bc4;" (click)="openEditTaskModal($event,editModal)"></i>
+      <i class="bi bi-trash" style="color: red;" (click)="openDeleteModal(deletemodal)"></i>
     </div>
   </div>
 </div>
@@ -19,7 +19,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="deleteTask()">Delete</button>
+    <button  type="button" class="btn btn-danger" (click)="deleteTask()">Delete</button>
   </div>
 </ng-template>
 
@@ -70,7 +70,6 @@
       <label class="form-label"><strong>Created At:</strong></label>
       <p>{{ task?.createdAt | date:'medium' }}</p>
     </div> -->
-    <!-- Add any other fields you want to display -->
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>

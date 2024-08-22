@@ -49,7 +49,7 @@ export class CardItemComponent implements OnInit {
   }
 
   openEditTaskModal(event:any,content: any) {
-    event.stopPropagation(); // Prevent triggering the parent click event
+    event.stopPropagation(); //prevent trigring the parent so we don't open both modals
     this.modalService.open(content)
   }
 

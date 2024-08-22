@@ -1,8 +1,52 @@
-  .card-header {
+.title-background {
+  // background: linear-gradient(45deg, #FF512F, #DD2476, #24C6DC);
+  background: linear-gradient(45deg, #064c9d, #5299ea, #7598e9);
+  background-size: 300% 300%;
+  height: 100px; /* Full height to the top of the page */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 70px;
+  color: #fff;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+  .todo-card-header {
     font-weight: bold;
     text-align: center;
-    background-color: #343a40;
+    // background-color: yellow;
+    background-color: #edcb50;
     color: white;
+    padding: 10px;
+  }
+
+  .progress-card-header {
+    font-weight: bold;
+    text-align: center;
+    // background-color: #3fca90;
+    // background-color: green;
+    background-color: #edcb50;
+
+    color: white;
+    padding: 10px;
+
+  }
+
+  .done-card-header {
+    font-weight: bold;
+    text-align: center;
+    // background-color: #3b7bc4;
+    background-color: #edcb50;
+
+    color: white;
+    padding: 10px;
+
   }
 
   .btn-floating {
