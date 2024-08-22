@@ -19,11 +19,10 @@ export class TaskService {
   }
 
   updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(environment.basicUrl +`${task.id}`, task);
+    return this.http.put<Task>(environment.basicUrl +`tasks/${task.id}`, task);
   }
 
-  // Delete a task by ID
-  deleteTask(taskId: number): Observable<void> {
+  deleteTask(taskId: any): Observable<void> {
     return this.http.delete<void>(environment.basicUrl +`tasks/${taskId}`);
   }
 }

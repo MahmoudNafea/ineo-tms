@@ -98,9 +98,9 @@ export class DashboardComponent {
     // });
   }
 
-  confirmDeleteTask(event: any) {
+  confirmDeleteTask(task: Task) {
     this.taskService
-      .deleteTask(event?.id)
+      .deleteTask(task?.id)
       .pipe(
         catchError((error) => {
           this.toastComponent.show(`${error?.message}`, 'error')
@@ -114,6 +114,24 @@ export class DashboardComponent {
         )
         this.updateAllTasks()
       })
+  }
+
+  confirmUpdateTask(task:Task){
+    this.taskService
+    .updateTask(task)
+    .pipe(
+      catchError((error) => {
+        this.toastComponent.show(`${error?.message}`, 'error')
+        return of(null)
+      }),
+    )
+    .subscribe((data: any) => {
+      this.toastComponent.show(
+        `${data?.title} updated successfully`,
+        'success',
+      )
+      this.updateAllTasks()
+    })
   }
 
   openModal(content: any) {

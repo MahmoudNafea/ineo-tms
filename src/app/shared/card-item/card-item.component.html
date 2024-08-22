@@ -1,9 +1,9 @@
-<div class="card mb-3 task-card" (click)="editTask()">
+<div class="card mb-3 task-card" (click)="openDetailsModal(detailsModal)">
   <div class="card-body">
     <h5 class="card-title text-center">{{ task?.title }}</h5>
     <p class="card-text">{{ task?.description }}</p>
     <div class="task-icons d-flex justify-content-end">
-      <i class="bi bi-pencil-square me-2" (click)="editTask()"></i>
+      <i class="bi bi-pencil-square me-2" (click)="openEditTaskModal($event,editModal)"></i>
       <i class="bi bi-trash" (click)="openDeleteModal(deletemodal)"></i>
     </div>
   </div>
@@ -22,3 +22,58 @@
     <button type="button" class="btn btn-danger" (click)="deleteTask()">Delete</button>
   </div>
 </ng-template>
+
+<ng-template #editModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Task</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editTaskForm" >
+      <div class="mb-3">
+        <label for="taskTitle" class="form-label">Title</label>
+        <input type="text" id="taskTitle" formControlName="title" class="form-control" placeholder="Enter task title" />
+      </div>
+      <div class="mb-3">
+        <label for="taskDescription" class="form-label">Description</label>
+        <textarea id="taskDescription" formControlName="description" class="form-control" rows="3" placeholder="Enter task description"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="taskStatus" class="form-label">Status</label>
+        <select id="taskStatus" formControlName="status" class="form-select">
+          <option *ngFor="let status of taskStatuses" [value]="status">{{ status | titlecase }}</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveTask()">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #detailsModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ task?.title }} details</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label"><strong>Description:</strong></label>
+      <p>{{ task?.description }}</p>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"><strong>Status:</strong></label>
+      <p>{{ task?.status | titlecase }}</p>
+    </div>
+    <!-- <div class="mb-3">
+      <label class="form-label"><strong>Created At:</strong></label>
+      <p>{{ task?.createdAt | date:'medium' }}</p>
+    </div> -->
+    <!-- Add any other fields you want to display -->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+  </div>
+</ng-template>
+
