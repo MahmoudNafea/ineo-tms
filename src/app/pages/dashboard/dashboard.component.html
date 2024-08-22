@@ -1,60 +1,81 @@
+
+
+<div *ngIf="isLoading; else content2">
+  <!-- Spinner -->
+  <div class="spinner-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  
+  <!-- Skeleton Loader -->
+  <!-- <div class="skeleton-container">
+    <div class="row">
+      <div class="col-md-4 mb-3" *ngFor="let _ of [1, 2, 3]">
+        <div class="skeleton-card">
+          <div class="skeleton-header"></div>
+          <div class="skeleton-body"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<ng-template #content2>
   <div class="container mt-5">
     <h3 class="mt-5 mb-3 text-center">INEO TMS</h3>
     <div class="row">
       <div class="col-md-4">
         <h4 class="card-header">To Do</h4>
-        <app-card-item
-          *ngFor="let task of toDoTasks"
-          [task]="task"
-        ></app-card-item>
+        <app-card-item *ngFor="let task of toDoTasks" [task]="task"></app-card-item>
       </div>
       <div class="col-md-4">
         <h4 class="card-header">In Progress</h4>
-        <app-card-item
-          *ngFor="let task of inProgressTasks"
-          [task]="task"
-        ></app-card-item>
+        <app-card-item *ngFor="let task of inProgressTasks" [task]="task"></app-card-item>
       </div>
       <div class="col-md-4">
         <h4 class="card-header">Done</h4>
-        <app-card-item
-          *ngFor="let task of doneTasks"
-          [task]="task"
-        ></app-card-item>
+        <app-card-item *ngFor="let task of doneTasks" [task]="task"></app-card-item>
       </div>
     </div>
   </div>
-  
-  <button type="button" class="btn btn-primary btn-floating" (click)="openModal(createTaskModal)">
-    <i class="bi bi-plus"></i>
-  </button>
+</ng-template>
 
-  <!-- <app-create-task-dialog ></app-create-task-dialog> -->
+<button type="button" class="btn btn-primary btn-floating" (click)="openModal(createTaskModal)">
+  <i class="bi bi-plus"></i>
+</button>
 
-  <ng-template #createTaskModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Create New Task</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <form (ngSubmit)="addTask(taskForm.value)" #taskForm="ngForm">
-        <div class="mb-3">
-          <label for="taskTitle" class="form-label">Title</label>
-          <input type="text" id="taskTitle" class="form-control" name="title" ngModel required>
-        </div>
-        <div class="mb-3">
-          <label for="taskDescription" class="form-label">Description</label>
-          <textarea id="taskDescription" class="form-control" name="description" ngModel required></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="taskStatus" class="form-label">Status</label>
-          <select id="taskStatus" class="form-select" name="status" ngModel required>
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Task</button>
-      </form>
-    </div>
-  </ng-template>
+<!-- <app-create-task-dialog ></app-create-task-dialog> -->
+
+<ng-template #createTaskModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create New Task</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]=createTaskForm (ngSubmit)="addNewTask(createTaskForm,modal)">
+      <div class="mb-3">
+        <label for="taskTitle" class="form-label">Title</label>
+        <input type="text" id="taskTitle" class="form-control" name="title" formControlName="title" required>
+      </div>
+      <div class="mb-3">
+        <label for="taskDescription" class="form-label">Description</label>
+        <textarea id="taskDescription" class="form-control" name="description" formControlName="description"
+          required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="taskStatus" class="form-label">Status</label>
+        <select id="taskStatus" class="form-select" formControlName="status" required>
+          <option *ngFor="let status of taskStatuses" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+      <button *ngIf="!showSpinner" type="submit" class="btn btn-primary">Add Task</button>
+      <button *ngIf="showSpinner" class="btn btn-lg btn-light" style="width: 100.02px" type="submit">
+        <span style="height: 22.391px; width: 22.391px" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span>
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+<app-toast></app-toast>

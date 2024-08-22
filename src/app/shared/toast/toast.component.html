@@ -1,0 +1,15 @@
+
+  <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050;">
+    <div *ngFor="let toast of toastMessages" class="toast show"
+         [class.bg-success]="toast.type === 'success'"
+         [class.bg-danger]="toast.type === 'error'">
+      <!-- <div class="toast-header">
+        <strong class="me-auto">{{ toast.type | titlecase }}</strong>
+        <button type="button" class="btn-close" aria-label="Close" (click)="dismiss(toast)"></button>
+      </div> -->
+      <div class="toast-body">
+        {{ toast.message }}
+      </div>
+    </div>
+  </div>
+  

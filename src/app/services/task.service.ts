@@ -13,4 +13,8 @@ export class TaskService {
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(environment.basicUrl + 'tasks')
   }
+
+  createNewTask(task:Task) {
+    return this.http.post(environment.basicUrl + 'tasks',task)
+  }
 }
