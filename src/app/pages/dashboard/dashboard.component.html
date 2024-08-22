@@ -27,25 +27,25 @@
     <div class="row">
       <div class="col-md-4">
         <h4 class="card-header">To Do</h4>
-        <app-card-item *ngFor="let task of toDoTasks" [task]="task"></app-card-item>
+        <app-card-item (removeTask)="confirmDeleteTask($event)" *ngFor="let task of toDoTasks" [task]="task"></app-card-item>
       </div>
       <div class="col-md-4">
         <h4 class="card-header">In Progress</h4>
-        <app-card-item *ngFor="let task of inProgressTasks" [task]="task"></app-card-item>
+        <app-card-item (removeTask)="confirmDeleteTask($event)" *ngFor="let task of inProgressTasks" [task]="task"></app-card-item>
       </div>
       <div class="col-md-4">
         <h4 class="card-header">Done</h4>
-        <app-card-item *ngFor="let task of doneTasks" [task]="task"></app-card-item>
+        <app-card-item (removeTask)="confirmDeleteTask($event)" *ngFor="let task of doneTasks" [task]="task"></app-card-item>
       </div>
     </div>
   </div>
 </ng-template>
 
+
 <button type="button" class="btn btn-primary btn-floating" (click)="openModal(createTaskModal)">
   <i class="bi bi-plus"></i>
 </button>
 
-<!-- <app-create-task-dialog ></app-create-task-dialog> -->
 
 <ng-template #createTaskModal let-modal>
   <div class="modal-header">

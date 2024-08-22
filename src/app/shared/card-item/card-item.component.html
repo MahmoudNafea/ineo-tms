@@ -1,10 +1,24 @@
-  <div class="card mb-3 task-card" (click)="editTask()">
-    <div class="card-body">
-      <h5 class="card-title text-center">{{ task?.title }}</h5>
-      <p class="card-text">{{ task?.description }}</p>
-      <div class="task-icons d-flex justify-content-end">
-        <i class="bi bi-pencil-square me-2" (click)="editTask()"></i>
-        <i class="bi bi-trash" (click)="confirmDelete()"></i>
-      </div>
+<div class="card mb-3 task-card" (click)="editTask()">
+  <div class="card-body">
+    <h5 class="card-title text-center">{{ task?.title }}</h5>
+    <p class="card-text">{{ task?.description }}</p>
+    <div class="task-icons d-flex justify-content-end">
+      <i class="bi bi-pencil-square me-2" (click)="editTask()"></i>
+      <i class="bi bi-trash" (click)="openDeleteModal(deletemodal)"></i>
     </div>
   </div>
+</div>
+
+<ng-template #deletemodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmation</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete {{task?.title}}?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="deleteTask()">Delete</button>
+  </div>
+</ng-template>

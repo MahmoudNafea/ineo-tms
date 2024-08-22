@@ -52,7 +52,6 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
-
     this.getAllTasks()
   }
 
@@ -60,15 +59,36 @@ export class DashboardComponent {
     this.isLoading = true
     this.taskService
       .getTasks()
-      .pipe(delay(3000)) // Delay for 3 seconds
+      .pipe(delay(2000)) // Delay for 3 seconds
       .subscribe((tasks: any) => {
         this.tasks = tasks
-        this.toDoTasks = this.tasks.filter((task) => task?.status === 'To Do')
-        this.inProgressTasks = this.tasks.filter(
-          (task) => task?.status === 'In Progress',
+        this.toDoTasks = this.tasks.filter(
+          (task) => task?.status === TaskStatus.ToDo,
         )
-        this.doneTasks = this.tasks.filter((task) => task?.status === 'Done')
+        this.inProgressTasks = this.tasks.filter(
+          (task) => task?.status === TaskStatus.InProgress,
+        )
+        this.doneTasks = this.tasks.filter(
+          (task) => task?.status === TaskStatus.Done,
+        )
         this.isLoading = false
+      })
+  }
+
+ updateAllTasks() {
+    this.taskService
+      .getTasks()
+      .subscribe((tasks: any) => {
+        this.tasks = tasks
+        this.toDoTasks = this.tasks.filter(
+          (task) => task?.status === TaskStatus.ToDo,
+        )
+        this.inProgressTasks = this.tasks.filter(
+          (task) => task?.status === TaskStatus.InProgress,
+        )
+        this.doneTasks = this.tasks.filter(
+          (task) => task?.status === TaskStatus.Done,
+        )
       })
   }
 
@@ -78,25 +98,26 @@ export class DashboardComponent {
     // });
   }
 
-  confirmDelete() {
-    // const confirmDeleteDialog = this.dialog.open(ConfirmDeleteDialog);
-    // confirmDeleteDialog.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     // Code to delete the task
-    //   }
-    // });
+  confirmDeleteTask(event: any) {
+    this.taskService
+      .deleteTask(event?.id)
+      .pipe(
+        catchError((error) => {
+          this.toastComponent.show(`${error?.message}`, 'error')
+          return of(null)
+        }),
+      )
+      .subscribe((data: any) => {
+        this.toastComponent.show(
+          `${data?.title} deleted successfully`,
+          'success',
+        )
+        this.updateAllTasks()
+      })
   }
 
   openModal(content: any) {
     this.modalService.open(content)
-    // .result.then(
-    //   (result) => {
-    //     // Handle close result if needed
-    //   },
-    //   (reason) => {
-    //     // Handle dismiss reason if needed
-    //   },
-    // )
   }
 
   addNewTask(form: FormGroup, modal: any) {
