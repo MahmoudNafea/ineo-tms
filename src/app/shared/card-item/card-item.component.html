@@ -4,7 +4,7 @@
     <p class="card-text">{{ task?.description }}</p>
     <div class="task-icons d-flex justify-content-end">
       <i class="bi bi-pencil-square me-2" style="color: #3b7bc4;" (click)="openEditTaskModal($event,editModal)"></i>
-      <i class="bi bi-trash" style="color: red;" (click)="openDeleteModal(deletemodal)"></i>
+      <i class="bi bi-trash" style="color: red;" (click)="openDeleteModal($event,deletemodal)"></i>
     </div>
   </div>
 </div>

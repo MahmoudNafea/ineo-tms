@@ -1,8 +1,8 @@
 .title-background {
-  // background: linear-gradient(45deg, #FF512F, #DD2476, #24C6DC);
-  background: linear-gradient(45deg, #064c9d, #5299ea, #7598e9);
+  // background: linear-gradient(45deg, #064c9d, #5299ea, #7598e9);
+  background: linear-gradient(45deg, #6405a3, #ae1b8e, #eb40c6);
   background-size: 300% 300%;
-  height: 100px; /* Full height to the top of the page */
+  height: 100px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,6 @@
   .todo-card-header {
     font-weight: bold;
     text-align: center;
-    // background-color: yellow;
     background-color: #edcb50;
     color: white;
     padding: 10px;
@@ -29,10 +28,7 @@
   .progress-card-header {
     font-weight: bold;
     text-align: center;
-    // background-color: #3fca90;
-    // background-color: green;
     background-color: #edcb50;
-
     color: white;
     padding: 10px;
 
@@ -41,9 +37,7 @@
   .done-card-header {
     font-weight: bold;
     text-align: center;
-    // background-color: #3b7bc4;
     background-color: #edcb50;
-
     color: white;
     padding: 10px;
 
@@ -61,6 +55,8 @@
     align-items: center;
     justify-content: center;
     padding: 0; 
+    background: #ae1b8e;
+    color: #fff;
   }
   
   .btn-rounded {
@@ -74,38 +70,4 @@
   height: 100vh; 
   position: relative;
   z-index: 10;
-}
-
-// .skeleton-container {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   padding: 20px; /* Adjust padding as needed */
-// }
-
-// .skeleton-card {
-//   background-color: #e0e0e0; /* Light gray background */
-//   border-radius: 4px;
-//   padding: 15px;
-//   margin-bottom: 15px;
-//   height: 200px; /* Adjust height as needed */
-//   width: 100%; /* Ensure it takes full width available */
-// }
-
-// .skeleton-header {
-//   background-color: #bdbdbd; /* Darker gray for header */
-//   height: 20px;
-//   width: 60%;
-//   margin-bottom: 10px;
-//   border-radius: 4px;
-// }
-
-// .skeleton-body {
-//   background-color: #cfcfcf; /* Slightly lighter gray for body */
-//   height: 60%;
-//   width: 100%;
-//   border-radius: 4px;
-// }
-
-  
+} 

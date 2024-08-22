@@ -53,7 +53,8 @@ export class CardItemComponent implements OnInit {
     this.modalService.open(content)
   }
 
-  openDeleteModal(content: any) {
+  openDeleteModal(event:any,content: any) {
+    event.stopPropagation(); //prevent trigring the parent so we don't open both modals
     this.modalService.open(content)
   }
 
