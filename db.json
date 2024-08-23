@@ -4,7 +4,7 @@
       "id": "1",
       "title": "Fix car",
       "description": "Changing car tires is crucial for us",
-      "status": "To Do",
+      "status": "In Progress",
       "createdAt": "2024-08-22T08:30:00Z"
     },
     {
@@ -18,28 +18,28 @@
       "id": "35",
       "title": "Finishing a book",
       "description": "It is been a while and we are reading this book",
-      "status": "Done",
+      "status": "In Progress",
       "createdAt": "2024-08-21T14:45:00Z"
     },
     {
       "id": "bda7",
       "title": "Studying",
       "description": "Learning new programming language",
-      "status": "In Progress",
+      "status": "Done",
       "createdAt": "2024-08-21T16:15:00Z"
     },
     {
       "id": "4c3e",
       "title": "Home cleaning",
       "description": "Take the extra stuff out and clean all rooms",
-      "status": "Done",
+      "status": "To Do",
       "createdAt": "2024-08-20T11:30:00Z"
     },
     {
       "id": "fdf5",
       "title": "Pet the dog",
       "description": "The dog is in a need to go to the park",
-      "status": "To Do",
+      "status": "In Progress",
       "createdAt": "2024-08-19T10:00:00Z"
     }
   ]

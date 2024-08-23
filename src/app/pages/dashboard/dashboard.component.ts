@@ -13,6 +13,7 @@ import { Task, TaskStatus } from '../../models/task.model'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { catchError, delay, of } from 'rxjs'
 import { ToastComponent } from '../../shared/toast/toast.component'
+import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop'
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,7 @@ import { ToastComponent } from '../../shared/toast/toast.component'
     CardItemComponent,
     ReactiveFormsModule,
     ToastComponent,
+    DragDropModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -86,6 +88,26 @@ export class DashboardComponent {
     })
   }
 
+
+//drag and drop task between statuses
+  drop(event: CdkDragDrop<any[]>, status: string) {
+    if (event.previousContainer === event.container) {
+      return; // Task is dropped in the same list, do nothing
+    }
+
+    const task = event.previousContainer.data[event.previousIndex];
+    task.status = status; // Update the status of the task
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    //Update the task and call update all tasks inside it
+    this.confirmUpdateTask(task);
+  }
+  
   //Get all tasks at the beginging with delay to show spinner
   getAllTasks() {
     this.isLoading = true
@@ -146,6 +168,7 @@ export class DashboardComponent {
   }
 
   confirmUpdateTask(task: Task) {
+    console.log("🚀 ~ DashboardComponent ~ confirmUpdateTask ~ task:", task)
     this.taskService
       .updateTask(task)
       .pipe(

@@ -8,51 +8,53 @@
 </div>
 
 
-<!-- conditionally show the page content -->
+<!-- conditionally show the page content including drag and drop -->
 <ng-template #content2>
-  <div class="container-fluid  ">
+  <div class="container-fluid">
     <div class="title-background">
       <h3 class="mt-5 mb-3 text-center ">INEO TMS</h3>
     </div>
-    <div class="row">
-      <div class="col-md-4">
-        <h4 class="todo-card-header">
-          To Do 
-          <i 
-            class="bi" 
-            [ngClass]="{'bi-arrow-up': !sortAscending, 'bi-arrow-down': sortAscending}" 
-            (click)="sortToDoTasks()"
-            style="cursor: pointer;"
-          ></i>
+    <div class="row" cdkDropListGroup>
+      
+      <div class="col-md-4" 
+           cdkDropList 
+           [cdkDropListData]="toDoTasks" 
+           (cdkDropListDropped)="drop($event, 'To Do')">
+        <h4 class="todo-card-header">To Do 
+          <i class="bi" [ngClass]="{'bi-arrow-up': !sortAscending, 'bi-arrow-down': sortAscending}" (click)="sortToDoTasks()"></i>
         </h4>
-        <app-card-item 
-          (removeTask)="confirmDeleteTask($event)" 
-          (updateTask)="confirmUpdateTask($event)"
-          *ngFor="let task of toDoTasks" 
-          [task]="task">
-        </app-card-item>
+        <div *ngFor="let task of toDoTasks" cdkDrag>
+          <app-card-item [task]="task"></app-card-item>
+        </div>
       </div>
-
-      <div class="col-md-4">
-        <h4 class="progress-card-header">
-          In Progress
+  
+      <div class="col-md-4" 
+           cdkDropList 
+           [cdkDropListData]="inProgressTasks" 
+           (cdkDropListDropped)="drop($event, 'In Progress')">
+        <h4 class="progress-card-header">In Progress
           <i class="bi" [ngClass]="{'bi-arrow-up': isInProgressAscending, 'bi-arrow-down': !isInProgressAscending}" (click)="sortInProgressTasks()"></i>
         </h4>
-        <app-card-item (removeTask)="confirmDeleteTask($event)" (updateTask)="confirmUpdateTask($event)"
-          *ngFor="let task of inProgressTasks" [task]="task"></app-card-item>
+        <div *ngFor="let task of inProgressTasks" cdkDrag>
+          <app-card-item [task]="task"></app-card-item>
+        </div>
       </div>
       
-      <div class="col-md-4">
-        <h4 class="done-card-header">
-          Done
+      <div class="col-md-4" 
+           cdkDropList 
+           [cdkDropListData]="doneTasks" 
+           (cdkDropListDropped)="drop($event, 'Done')">
+        <h4 class="done-card-header">Done
           <i class="bi" [ngClass]="{'bi-arrow-up': isDoneAscending, 'bi-arrow-down': !isDoneAscending}" (click)="sortDoneTasks()"></i>
         </h4>
-        <app-card-item (removeTask)="confirmDeleteTask($event)" (updateTask)="confirmUpdateTask($event)"
-          *ngFor="let task of doneTasks" [task]="task"></app-card-item>
+        <div *ngFor="let task of doneTasks" cdkDrag>
+          <app-card-item [task]="task"></app-card-item>
+        </div>
       </div>
-      
+  
     </div>
   </div>
+  
 </ng-template>
 
 <!-- Adding task using floating button -->
